@@ -1,7 +1,8 @@
 {
-    "europe": {
-        "this": "lt/microhackathon/client-service",
-        "dependencies": {
-        }
-    }
+	"europe": {
+		"this": "lt/microhackathon/client-service",
+		"dependencies": {
+			"reposting-service": "lt/microhackathon/reporting-service"
+		}
+	}
 }
