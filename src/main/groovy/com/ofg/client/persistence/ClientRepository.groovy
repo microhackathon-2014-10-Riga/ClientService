@@ -4,5 +4,5 @@ import com.ofg.client.model.Client
 import org.springframework.data.repository.CrudRepository
 
 
-interface ClientRepository extends CrudRepository<Client, Long>{
+interface ClientRepository extends CrudRepository<Client, Long> {
 }

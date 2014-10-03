@@ -1,4 +1,5 @@
 package com.ofg.client.controller
+
 import com.ofg.client.model.Client
 import com.ofg.client.persistence.ClientRepository
 import com.ofg.client.reporting.ReportingServiceNotifier
@@ -14,19 +15,20 @@ import org.springframework.web.bind.annotation.RestController
 
 import javax.validation.constraints.NotNull
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET
 import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 @Slf4j
 @RestController
-@RequestMapping('/client')
-@Api(value = 'client', description = 'Operations on clients')
+@RequestMapping('/clients')
+@Api(value = 'clients', description = 'Operations on clients')
 class ClientController {
 
 	@Autowired
 	ReportingServiceNotifier reportingServiceNotifier
-    
-    @Autowired
-    ClientRepository clientRepository
+
+	@Autowired
+	ClientRepository clientRepository
 
 	@RequestMapping(
 			method = POST,
@@ -34,8 +36,16 @@ class ClientController {
 			produces = 'application/json')
 	@ApiOperation('Stores a client')
 	ResponseEntity<String> store(@RequestBody @NotNull Client client) {
-        def savedClient = clientRepository.save(client)
+		def savedClient = clientRepository.save(client)
 		reportingServiceNotifier.notifyAboutNewClient(savedClient)
 		new ResponseEntity<String>(HttpStatus.CREATED)
+	}
+
+	@RequestMapping(
+			method = GET,
+			produces = 'application/json')
+	@ApiOperation('List clients')
+	Iterable<Client> list() {
+		clientRepository.findAll()
 	}
 }
