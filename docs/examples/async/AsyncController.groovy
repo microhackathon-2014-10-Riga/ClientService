@@ -1,5 +1,5 @@
-package com.ofg.microservice.examples
-import com.ofg.microservice.infrastructure.correlationid.CorrelationIdHolder
+package com.ofg.client.examples
+import com.ofg.client.infrastructure.correlationid.CorrelationIdHolder
 import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.transform.PackageScope

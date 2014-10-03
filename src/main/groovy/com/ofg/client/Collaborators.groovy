@@ -1,4 +1,4 @@
-package com.ofg.microservice
+package com.ofg.client
 
 import groovy.transform.CompileStatic
 

@@ -1,4 +1,4 @@
-package com.ofg.microservice.config
+package com.ofg.client.config
 
 import com.ofg.infrastructure.config.WebAppConfiguration
 import org.springframework.context.annotation.Configuration
