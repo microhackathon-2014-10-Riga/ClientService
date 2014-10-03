@@ -20,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST
 
 @Slf4j
 @RestController
-@RequestMapping('/clients')
+@RequestMapping('/api/client')
 @Api(value = 'clients', description = 'Operations on clients')
 class ClientController {
 
