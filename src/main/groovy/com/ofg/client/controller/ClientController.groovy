@@ -6,7 +6,7 @@ import com.wordnik.swagger.annotations.Api
 import com.wordnik.swagger.annotations.ApiOperation
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -28,7 +28,7 @@ class ClientController {
 			consumes = 'application/json',
 			produces = 'application/json')
 	@ApiOperation('Stores a client')
-	Client store(@ModelAttribute @NotNull Client client) {
+	Client store(@RequestBody @NotNull Client client) {
 		reportingServiceNotifier.notifyAboutNewClient(client)
 		client
 	}
