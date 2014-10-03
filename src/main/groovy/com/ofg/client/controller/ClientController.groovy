@@ -1,5 +1,7 @@
 package com.ofg.client.controller
 
+import com.codahale.metrics.Counter
+import com.codahale.metrics.MetricRegistry
 import com.ofg.client.model.Client
 import com.ofg.client.persistence.ClientRepository
 import com.ofg.client.reporting.ReportingServiceNotifier
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+import javax.annotation.PostConstruct
 import javax.validation.constraints.NotNull
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET
@@ -30,6 +33,17 @@ class ClientController {
 	@Autowired
 	ClientRepository clientRepository
 
+	@Autowired
+	MetricRegistry metricRegistry
+
+	Counter clientCounter
+
+	@PostConstruct
+	void initClientCounter() {
+		clientCounter = metricRegistry.counter("clients")
+		clientCounter.inc(clientRepository.count())
+	}
+
 	@RequestMapping(
 			method = POST,
 			consumes = 'application/json',
@@ -38,6 +52,7 @@ class ClientController {
 	ResponseEntity<String> store(@RequestBody @NotNull Client client) {
 		def savedClient = clientRepository.save(client)
 		reportingServiceNotifier.notifyAboutNewClient(savedClient)
+		clientCounter.inc()
 		new ResponseEntity<String>(HttpStatus.CREATED)
 	}
 
